@@ -1,0 +1,3 @@
+# App\orders\list\infrastructure\controller\OrdersListerGetController:
+#   resource: App\orders\list\infrastructure\controller\OrdersListerGetController
+#   type: attribute
