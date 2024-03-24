@@ -22,3 +22,4 @@ phpstan.neon
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+/docker/db/data/
