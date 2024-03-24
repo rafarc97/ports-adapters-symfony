@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Tests\orders\list\application;
 
-use App\orders\list\application\OrdersLister;
-use App\orders\list\domain\OrderRepository;
-use App\orders\list\domain\Order;
-use App\orders\list\domain\Status;
-use App\orders\list\application\response\OrdersResponse;
-use App\orders\list\application\response\OrderResponse;
-use App\orders\list\domain\exception\OrdersNotFoundException;
+use orders\list\application\OrdersLister;
+use orders\list\domain\OrderRepository;
+use orders\list\domain\Order;
+use orders\list\domain\StatusEnum;
+use orders\list\application\response\OrdersResponse;
+use orders\list\application\response\OrderResponse;
+use orders\list\domain\exception\OrdersNotFoundException;
 
 
 use PHPUnit\Framework\TestCase;
@@ -25,8 +25,8 @@ class OrdersListerTest extends TestCase
             ->method('searchAllOrders')
             ->with()
             ->willReturn([
-                new Order(1, 'order 1', 'mail1@mail.com', Status::PENDING, 5.25),
-                new Order(2, 'order 2', 'mail2@mail.com', Status::PENDING, 10),
+                new Order(1, 'order 1', 'mail1@mail.com', StatusEnum::PENDING, 5.25),
+                new Order(2, 'order 2', 'mail2@mail.com', StatusEnum::PENDING, 10),
             ]);
 
         $ordersLister = new OrdersLister($orderRepository);
