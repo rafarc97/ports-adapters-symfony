@@ -13,11 +13,8 @@ use function Lambdish\Phunctional\map;
 
 final class OrdersLister
 {
-    private $orderRepository;
-
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct(private readonly OrderRepository $orderRepository)
     {
-        $this->orderRepository = $orderRepository;
     }
 
     public function __invoke(): OrdersResponse
@@ -29,20 +26,14 @@ final class OrdersLister
         }
 
         return new OrdersResponse(...map($this->toResponse(), $orders));
-        return new OrdersResponse(...$this->toResponse($orders));
     }
 
     private function toResponse(): callable
     {
-        return static function(Order $order){
-            return new OrderResponse($order->orderId(), $order->name(), $order->totalPrice());
-        };
-
-        // $ordersResponse = [];
-        // foreach($orders as $order){
-        //     $ordersResponse[] = new OrderResponse($order->orderId(), $order->name(), $order->totalPrice());
-        // }
-
-        // return $ordersResponse;
+        return static fn(Order $order) => new OrderResponse(
+                $order->id, 
+                $order->name, 
+                $order->totalPrice
+        );
     }
 }

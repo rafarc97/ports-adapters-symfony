@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\orders\list\application\response;
 
-use App\orders\list\domain\Order;
-
 final readonly class OrdersResponse
 {
     private array $orders;
