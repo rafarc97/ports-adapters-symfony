@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 namespace App\orders\list\infrastructure\controller;
 
+use App\orders\list\application\OrdersLister;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 final class OrdersListerGetController
 {
-    #[Route('orders-lister', methods: ['GET'], name: 'orders-lister')]
-    public function __invoke(): JsonResponse
+
+    public function __construct(private OrdersLister $ordersLister)
     {
-        return new JsonResponse(['Testing Controller']);
+    }
+
+    #[Route('/orders-lister', methods: ['GET'], name: 'orders-lister')]
+    public function __invoke()
+    {
+        // $response = ($this->ordersLister)();
+        $response = $this->ordersLister->__invoke();
+
+        $jsonData = json_encode($response->orders(), JSON_PRETTY_PRINT);
+
+        return new JsonResponse($jsonData, Response::HTTP_OK, [], true);
     }
 }
